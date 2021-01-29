@@ -1,10 +1,18 @@
-let money;
-let income;
-let addExpenses;
-let deposit;
-let mission;
-let period;
+let money = 40000;
+let income = 'freelance';
+let addExpenses = 'Еда, Бензин, Сигареты';
+let deposit = true;
+let mission = 1000000;
+let period = 12;
 
-alert('Привет, мир!!');
+console.log(typeof(money));
+console.log(typeof(income));
+console.log(typeof(deposit));
+console.log(addExpenses.length);
 
-console.log('Меня зовут Максим');
+console.log('период равен ' + period + ' месяцев');
+
+console.log(addExpenses.toLowerCase().split(','));
+
+let budgetDay = money / 30;
+console.log(budgetDay);
