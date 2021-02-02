@@ -1,8 +1,26 @@
 "use strict";
-//УРОК 4
+
+let money = 40000;
+let income = 'freelance';
+let addExpenses = 'Еда, Бензин, Сигареты';
+let deposit = true;
+let mission = 1000000;
+let period = 12;
+money = +prompt('Ваш месячный доход?', 40000);
+addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'коммуналка, бензин');
+deposit = confirm('Есть ли у вас депозит в банке?');
+let expenses1 = prompt('Введите обязательную статью расходов?', 'сигареты');
+let amount1 = +prompt('Во сколько это обойдется?', 1000);
+let expenses2 = prompt('Введите обязательную статью расходов?', 'парковка');
+let amount2 = +prompt('Во сколько это обойдется?', 1000);
+let accumulatedMonth = getAccumulatedMonth();
+console.log(accumulatedMonth);
+let budgetDay = (accumulatedMonth / 30);
+
+
 
 //Функция возвращает сумму всех обязательных расходов за месяц
-let getExpensesMonth = function() {
+function getExpensesMonth() {
     let sum = amount1 + amount2;
     return sum;
 }
@@ -23,34 +41,6 @@ let showTypeOf = function(data) {
     return data, typeof(data);
 }
 
-
-let money = 40000;
-let income = 'freelance';
-let addExpenses = 'Еда, Бензин, Сигареты';
-let deposit = true;
-let mission = 1000000;
-let period = 12;
-
-
-//Урок 3
-
-money = +prompt('Ваш месячный доход?', 40000);
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'коммуналка, бензин');
-
-deposit = confirm('Есть ли у вас депозит в банке?');
-
-let expenses1 = prompt('Введите обязательную статью расходов?', 'сигареты');
-let amount1 = +prompt('Во сколько это обойдется?', 1000);
-let expenses2 = prompt('Введите обязательную статью расходов?', 'парковка');
-let amount2 = +prompt('Во сколько это обойдется?', 1000);
-
-let accumulatedMonth = getAccumulatedMonth();
-
-//высчитываем, сколько месяцев надо, чтобы достигнуть цели.
-
-let budgetDay = (accumulatedMonth / 30);
-
-
 let getStatusIncome = function() {
     if (budgetDay >= 1200) {
         return ('У вас высокий доход');
@@ -62,7 +52,6 @@ let getStatusIncome = function() {
         return ('Что то пошло не так');
     }
 }
-
 
 
 console.log(showTypeOf(money));
