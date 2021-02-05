@@ -13,10 +13,6 @@ let start = function() {
 }
 
 start();
-console.log(money);
-
-// let exp1;
-// let exp2;
 
 let appData = {
         income: {},
@@ -64,18 +60,18 @@ let appData = {
 
         //Функция возвращает Накопления за месяц (Доходы минус расходы)
         getBudget: function() {
-            appData.budge tMonth = money - appData.ExpensesMonth;
+            appData.budgetMonth = money - appData.ExpensesMonth;
             appData.budgetDay = (appData.budgetMonth / 30);
         },
 
         //Подсчитывает за какой период будет достигнута цель.
         getTargetMonth: function() {
-            let target = Math.ceil(appData.mission / appData.accumulatedMonth);
+            let target = Math.ceil(appData.mission / appData.budgetMonth);
             if (target <= 0) {
                 console.log('цель не будет достигнута');
             } else {
                 console.log('Цель будет достигнута');
-                return target;
+                appData.period = target;
             }
         },
         getStatusIncome: function() {
@@ -91,13 +87,18 @@ let appData = {
         },
 
     } //appData
-console.log(appData);
 appData.asking();
+appData.getBudget();
+appData.getTargetMonth();
 
 
-//выводы функцииappData
-console.log('доход в месяц ' + appData.budgetMonth);
+
+
+
+//выводы функции
 console.log('Расходы за месяц ' + appData.ExpensesMonth);
-console.log('за ' + appData.getTargetMonth() + ' месяцев');
-console.log('бюджет в день ' + appData.budgetDay);
+console.log('за ' + appData.period + ' месяцев');
 console.log(appData.getStatusIncome());
+for (let key in appData) {
+    console.log(`Наша программа включает в себя данные: ${key}`);
+}
