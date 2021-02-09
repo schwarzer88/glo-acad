@@ -1,11 +1,14 @@
 "use strict";
-
+//a
 const elemStart = document.getElementById('start');
-const incomePlus = document.querySelector('.income > .income_add');
-const expenses = document.querySelector('.expenses > .expenses_add');
+//b
+const incomePlus = document.getElementsByTagName('button')[0];
+const expenses = document.getElementsByTagName('button')[1];
+//c
 const depositCheck = document.querySelector('#deposit-check');
+//d
 const additionalIncome = document.querySelectorAll('.additional_income-item');
-//выводы
+//выводы(e)
 const budgetMonthValue = document.getElementsByClassName('budget_month-value');
 const budgetDayValue = document.getElementsByClassName('budget_day-value');
 const expensesMonthValue = document.getElementsByClassName('expenses_month-value');
@@ -13,11 +16,11 @@ const additionalIncomeValue = document.getElementsByClassName('additional_income
 const additionalExpensesValue = document.getElementsByClassName('additional_expenses-value');
 const incomePeriodValue = document.getElementsByClassName('income_period-value');
 const targetMonthValue = document.getElementsByClassName('target+month-value');
-//вводы
+//вводы(f)
 const salaryAmount = document.querySelector('.salary-amount');
 const incomeTitle = document.querySelector('.income-title');
 const incomeAmount = document.querySelector('.income-amount');
-const additionalIncomeItem = document.querySelectorAll('.additional_income-item');
+const additionalIncomeItem = document.querySelector('.additional_income-item');
 const expensesTitle = document.querySelector('.expenses-items > .expenses-title');
 const expensesAmount = document.querySelector('.expenses-amount');
 const additionalExpensesIten = document.querySelector('.additional_expenses-item');
@@ -26,7 +29,8 @@ const depositPercent = document.querySelector('.deposit-percent');
 const targetAmount = document.querySelector('.target-amount');
 const periodSelect = document.querySelector('.period-select');
 
-
+console.log(additionalIncomeItemOne);
+console.log(additionalIncomeItemTwo);
 let isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
