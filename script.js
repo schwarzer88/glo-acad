@@ -8,7 +8,6 @@ const todoControl = document.querySelector('.todo-control'),
 let todoData = [];
 
 
-
 const render = function() {
 
     todoList.textContent = '';
