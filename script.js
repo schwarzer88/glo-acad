@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 
 const todoControl = document.querySelector('.todo-control'),
     headerInput = document.querySelector('.header-input'),
@@ -7,19 +7,15 @@ const todoControl = document.querySelector('.todo-control'),
 
 let todoData = [];
 
-
 const render = function() {
-
     todoList.textContent = '';
     todoCompleted.textContent = '';
-    todoData.forEach(function(item) {
-        let localValue = JSON.stringify(item);
-        localStorage.setItem(item.value, localValue);
 
+    todoData = JSON.parse(localStorage.getItem('key')) || [];
+    todoData.forEach(function(item) {
         const li = document.createElement('li');
         li.classList.add('todo-item');
-
-        li.innerHTML = `<span class="text-todo">${item.value}</span>` +
+        li.innerHTML = '<span class="text-todo">' + item.value + '</span>' +
             '<div class="todo-buttons">' +
             '<button class="todo-remove"></button>' +
             '<button class="todo-complete"></button>' +
@@ -31,46 +27,43 @@ const render = function() {
             todoList.append(li);
         }
 
-        const btnTodoCompleted = li.querySelector('.todo-complete');
-        btnTodoCompleted.addEventListener('click', function() {
+        const buttonTodoComplete = li.querySelector('.todo-complete');
+        buttonTodoComplete.addEventListener('click', function() {
             item.completed = !item.completed;
+            localStorage.setItem('key', JSON.stringify(todoData));
             render();
-        })
+        });
 
-        const todoRemove = li.querySelector('.todo-remove');
-        todoRemove.addEventListener('click', function() {
-            todoData.splice(item, 1);
-            localStorage.removeItem(item.value);
-            console.log(item);
+        const buttonTodoRemove = li.querySelector('.todo-remove');
+        buttonTodoRemove.addEventListener('click', function() {
+            todoData.splice(todoData.indexOf(item), 1);
+            localStorage.setItem('key', JSON.stringify(todoData));
             render();
-        })
+        });
     });
 };
 
-
 todoControl.addEventListener('submit', function(event) {
     event.preventDefault();
-    if (headerInput.value.trim() === '') {
-        alert('Введите ваши планы');
-    } else {
-        const newTodo = {
-            value: headerInput.value.trim(),
-            completed: false,
-        };
-        headerInput.value = '';
-        todoData.push(newTodo);
 
-        render()
+    let newTodo;
+
+    if (headerInput.value.trim() !== '') {
+        newTodo = {
+            value: headerInput.value,
+            completed: false
+        }
+    } else {
+        return;
     }
 
+    todoData.push(newTodo);
+
+    localStorage.setItem('key', JSON.stringify(todoData));
+
+    headerInput.value = '';
+
+    render();
 });
-
-for (let i = 0; i < localStorage.length; i++) {
-    let key = localStorage.key(i);
-    let item = JSON.parse(localStorage.getItem(key));
-    todoData.push(item);
-}
-
-
 
 render();
