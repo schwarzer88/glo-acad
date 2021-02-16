@@ -97,6 +97,17 @@ let appData = {
             additionalIncomeValue.value = '';
             targetMonthValue.value = '';
             incomePeriodValue.value = '';
+            salaryAmount.value = '';
+            additionalIncomeItem[0].value = '';
+            additionalIncomeItem[1].value = '';
+            incomeTitle.value = '';
+            incomeAmount.value = '';
+            expensesTitle.value = '';
+            childExpenses[1].value = '';
+            childExpenses[3].value = '';
+            additionalExpensesIten.value = '';
+            targetAmount.value = '';
+            childIncome[1].value = '';
 
             salaryAmount.removeAttribute('readOnly');
             additionalIncomeItem[0].removeAttribute('readOnly');
@@ -271,4 +282,7 @@ incomePlus.addEventListener('click', function() {
     addIncomeBlockCall;
 });
 
-cancel.addEventListener('click', appData.reset);
+cancel.addEventListener('click', function() {
+    let resetCall = appData.reset.call(appData);
+    resetCall;
+});
