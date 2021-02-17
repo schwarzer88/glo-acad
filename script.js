@@ -57,6 +57,17 @@ let appData = {
         budgetMonth: 0,
         ExpensesMonth: 0,
         start: function() {
+            if (salaryAmount.value === '') {
+                elemStart.setAttribute('disabled', 'true');
+                return;
+            }
+            let inputs = document.querySelectorAll('.data input[type = text]');
+            inputs.forEach(function(item) {
+                item.setAttribute('disabled', 'disabled');
+            });
+            incomePlus.setAttribute('disabled', 'disabled');
+            expenses.setAttribute('disabled', 'disabled');
+
             this.budget = +salaryAmount.value;
 
             this.getExpenses();
@@ -69,27 +80,48 @@ let appData = {
 
             this.getInfoDeposit();
             this.showResult();
-            salaryAmount.setAttribute('readOnly', 'readOnly');
-            additionalIncomeItem[0].setAttribute('readOnly', 'readOnly');
-            additionalIncomeItem[1].setAttribute('readOnly', 'readOnly');
-            incomeTitle.setAttribute('readOnly', 'readOnly');
-            incomeAmount.setAttribute('readOnly', 'readOnly');
-            expensesTitle.setAttribute('readOnly', 'readOnly');
-            childExpenses[1].setAttribute('readOnly', 'readOnly');
-            childExpenses[3].setAttribute('readOnly', 'readOnly');
-            additionalExpensesIten.setAttribute('readOnly', 'readOnly');
-            depositAmount.setAttribute('readOnly', 'readOnly');
-            depositPercent.setAttribute('readOnly', 'readOnly');
-            targetAmount.setAttribute('readOnly', 'readOnly');
-            periodAmount.setAttribute('readOnly', 'readOnly');
-            periodSelect.setAttribute('readOnly', 'readOnly');
-            childIncome[1].setAttribute('readOnly', 'readOnly');
-            childIncome[3].setAttribute('readOnly', 'readOnly');
+            // salaryAmount.setAttribute('readOnly', 'readOnly');
+            // additionalIncomeItem[0].setAttribute('readOnly', 'readOnly');
+            // additionalIncomeItem[1].setAttribute('readOnly', 'readOnly');
+            // incomeTitle.setAttribute('readOnly', 'readOnly');
+            // incomeAmount.setAttribute('readOnly', 'readOnly');
+            // expensesTitle.setAttribute('readOnly', 'readOnly');
+            // childExpenses[1].setAttribute('readOnly', 'readOnly');
+            // childExpenses[3].setAttribute('readOnly', 'readOnly');
+            // additionalExpensesIten.setAttribute('readOnly', 'readOnly');
+            // depositAmount.setAttribute('readOnly', 'readOnly');
+            // depositPercent.setAttribute('readOnly', 'readOnly');
+            // targetAmount.setAttribute('readOnly', 'readOnly');
+            // periodAmount.setAttribute('readOnly', 'readOnly');
+            // periodSelect.setAttribute('readOnly', 'readOnly');
+            // childIncome[1].setAttribute('readOnly', 'readOnly');
+            // childIncome[3].setAttribute('readOnly', 'readOnly');
 
             elemStart.style.display = 'none';
             cancel.style.display = 'inline-block';
         },
         reset: function() {
+            let inputData = document.querySelectorAll('.data input[type = text]');
+            let resultInput = document.querySelectorAll('.result input [type = text]');
+
+            inputData.forEach(function(item) {
+                item.value = '';
+                item.removeAttribute('disabled');
+                periodSelect.value = '0';
+                periodAmount.innerHTML = periodSelect.value;
+            });
+            resultInput.forEach(function(item) {
+                item.value = '';
+            });
+            for (let i = 1; i < incomeItem.length; i++) {
+                incomeItem[i].parentNode.removeChild(incomeItem[i]);
+                incomePlus.style.display = 'block';
+            }
+            for (let i = 1; i < expensesItems.length; i++) {
+                expensesItems[i].parentNode.removeChild(expensesItems[i]);
+                expenses.style.display = 'block';
+            }
+
             budgetMonthValue.value = '';
             budgetDayValue.value = '';
             expensesMonthValue.value = '';
@@ -109,23 +141,26 @@ let appData = {
             targetAmount.value = '';
             childIncome[1].value = '';
 
-            salaryAmount.removeAttribute('readOnly');
-            additionalIncomeItem[0].removeAttribute('readOnly');
-            additionalIncomeItem[1].removeAttribute('readOnly');
-            incomeTitle.removeAttribute('readOnly');
-            incomeAmount.removeAttribute('readOnly');
-            expensesTitle.removeAttribute('readOnly');
-            childExpenses[1].removeAttribute('readOnly');
-            childExpenses[3].removeAttribute('readOnly');
-            additionalExpensesIten.removeAttribute('readOnly');
-            depositAmount.removeAttribute('readOnly');
-            depositPercent.removeAttribute('readOnly');
-            targetAmount.removeAttribute('readOnly');
-            periodAmount.removeAttribute('readOnly');
-            periodSelect.removeAttribute('readOnly');
-            childIncome[1].removeAttribute('readOnly');
-            childIncome[3].removeAttribute('readOnly');
-            cancel.removeAttribute('readOnly');
+            incomePlus.removeAttribute('disabled');
+            expenses.removeAttribute('disabled');
+
+            // salaryAmount.removeAttribute('readOnly');
+            // additionalIncomeItem[0].removeAttribute('readOnly');
+            // additionalIncomeItem[1].removeAttribute('readOnly');
+            // incomeTitle.removeAttribute('readOnly');
+            // incomeAmount.removeAttribute('readOnly');
+            // expensesTitle.removeAttribute('readOnly');
+            // childExpenses[1].removeAttribute('readOnly');
+            // childExpenses[3].removeAttribute('readOnly');
+            // additionalExpensesIten.removeAttribute('readOnly');
+            // depositAmount.removeAttribute('readOnly');
+            // depositPercent.removeAttribute('readOnly');
+            // targetAmount.removeAttribute('readOnly');
+            // periodAmount.removeAttribute('readOnly');
+            // periodSelect.removeAttribute('readOnly');
+            // childIncome[1].removeAttribute('readOnly');
+            // childIncome[3].removeAttribute('readOnly');
+            // cancel.removeAttribute('readOnly');
 
             elemStart.style.display = 'inline-block';
             cancel.style.display = 'none';
