@@ -31,6 +31,7 @@ let periodSelect = document.querySelector('.period-select');
 let incomeItem = document.querySelectorAll('.income-items');
 let childIncome = incomeItem[0].childNodes;
 let childExpenses = expensesItems[0].childNodes;
+elemStart.getAttribute('disabled', 'disabled');
 
 let cancel = document.querySelector('#cancel');
 
@@ -126,11 +127,26 @@ class AppData {
         targetAmount.value = '';
         childIncome[1].value = '';
 
+        this.budget = 0;
+        this.income = {};
+        this.addIncome = [];
+        this.incomeMonth = 0;
+        this.expenses = {};
+        this.addExpenses = [];
+        this.deposit = false;
+        this.precentDeposit = 0;
+        this.moneyDeposit = 0;
+        this.period = 3;
+        this.budgetDay = 0;
+        this.budgetMonth = 0;
+        this.ExpensesMonth = 0;
+
         incomePlus.removeAttribute('disabled');
         expenses.removeAttribute('disabled');
 
         elemStart.style.display = 'inline-block';
         cancel.style.display = 'none';
+        console.log(this);
 
     };
     showResult() {
@@ -251,9 +267,10 @@ class AppData {
             incomePeriodValue.value = this.calcSavedMoney();
         });
         // periodSelect.AddEventListenet('input', function() {});
+        elemStart.addEventListener('click', this.start.bind(this));
+        cancel.addEventListener('click', this.reset.bind(this));
         salaryAmount.addEventListener('input', () => {
-            elemStart.addEventListener('click', this.start.bind(this));
-            cancel.addEventListener('click', this.reset.bind(this));
+            elemStart.removeAttribute('disabled');
         });
         expenses.addEventListener('click', this.addExpensesBlock.bind(this));
         incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
