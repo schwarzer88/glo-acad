@@ -31,6 +31,7 @@ let periodSelect = document.querySelector('.period-select');
 let incomeItem = document.querySelectorAll('.income-items');
 let childIncome = incomeItem[0].childNodes;
 let childExpenses = expensesItems[0].childNodes;
+elemStart.getAttribute('disabled', 'disabled');
 
 let cancel = document.querySelector('#cancel');
 
@@ -59,6 +60,7 @@ const AppData = function() {
 };
 
 AppData.prototype.start = function() {
+    console.log(this);
     if (salaryAmount.value === '') {
         elemStart.setAttribute('disabled', 'true');
         return;
@@ -126,6 +128,20 @@ AppData.prototype.reset = function() {
     additionalExpensesIten.value = '';
     targetAmount.value = '';
     childIncome[1].value = '';
+    console.log(this);
+    this.budget = 0;
+    this.income = {};
+    this.addIncome = [];
+    this.incomeMonth = 0;
+    this.expenses = {};
+    this.addExpenses = [];
+    this.deposit = false;
+    this.precentDeposit = 0;
+    this.moneyDeposit = 0;
+    this.period = 3;
+    this.budgetDay = 0;
+    this.budgetMonth = 0;
+    this.ExpensesMonth = 0;
 
     incomePlus.removeAttribute('disabled');
     expenses.removeAttribute('disabled');
@@ -262,15 +278,17 @@ AppData.prototype.eventListeners = function() {
         incomePeriodValue.value = _this.calcSavedMoney();
     });
     // periodSelect.AddEventListenet('input', function() {});
+    elemStart.addEventListener('click', this.start.bind(this));
+    cancel.addEventListener('click', this.reset.bind(this));
     salaryAmount.addEventListener('input', function() {
-
-        elemStart.addEventListener('click', _this.start.bind(_this));
+        elemStart.removeAttribute('disabled');
     });
-    expenses.addEventListener('click', _this.addExpensesBlock.bind(_this));
-    incomePlus.addEventListener('click', _this.addIncomeBlock.bind(_this));
-    cancel.addEventListener('click', _this.reset.bind(_this));
-}
-const appData = new AppData();
+    expenses.addEventListener('click', _this.addExpensesBlock.bind);
+    incomePlus.addEventListener('click', _this.addIncomeBlock.bind);
 
+
+}
+
+const appData = new AppData();
 appData.eventListeners();
 console.log(appData);
