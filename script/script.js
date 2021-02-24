@@ -32,19 +32,70 @@ window.addEventListener('DOMContentLoaded', function() {
                 }
             }, 1000);
         };
-
         updateClock();
-
-    }
+    };
 
     countTimer('1 july 2019');
 
+    //Меню
+    const toggleMenu = () => {
 
+        const btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = menu.querySelectorAll('ul>li');
 
+        const handlerMenu = () => {
+            menu.classList.toggle('active-menu');
+        }
 
+        btnMenu.addEventListener('click', handlerMenu);
 
+        closeBtn.addEventListener('click', handlerMenu);
 
+        menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu))
+    };
+    toggleMenu();
 
+    //popup
+    const togglePopUp = () => {
+        const popup = document.querySelector('.popup'),
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupClose = document.querySelector('.popup-close'),
+            popupContent = document.querySelector('.popup-content');
+
+        popupBtn.forEach((elem) => {
+            elem.addEventListener('click', () => {
+                popup.style.display = 'block';
+                let nowPx = -200;
+                let widthPhone = document.documentElement.clientWidth;
+                popupContent.style.top = '-200px';
+                if (widthPhone <= 768) {
+                    popup.style.display = 'block';
+                    popupContent.style.display = 'block';
+                    popupContent.style.top = null;
+                } else {
+                    let anim = setInterval(() => {
+                        let height = Math.ceil(document.documentElement.clientHeight);
+                        popupContent.style.position = 'relative';
+                        console.log({ nowPx, height });
+                        if (nowPx === Math.ceil(height / 4)) {
+                            nowPx = 0;
+                            clearInterval(anim);
+                        } else {
+                            nowPx++;
+                            popupContent.style.top = `${nowPx}px`;
+                        }
+                    }, 8);
+                }
+            });
+        });
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    };
+
+    togglePopUp();
 
 
 });
