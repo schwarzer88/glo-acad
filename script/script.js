@@ -37,6 +37,21 @@ window.addEventListener('DOMContentLoaded', function() {
 
     countTimer('1 july 2019');
 
+    //плавная прокрутка
+    const getScroll = () => {
+        let btnScroll = document.querySelector('main>a');
+        btnScroll.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const blockId = btnScroll.getAttribute('href');
+            document.querySelector(blockId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            })
+        });
+    }
+    getScroll();
+
     //Меню
     const toggleMenu = () => {
 
@@ -49,8 +64,6 @@ window.addEventListener('DOMContentLoaded', function() {
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         }
-
-
 
         menu.addEventListener('click', (e) => {
             let target = e.target;
@@ -154,4 +167,29 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     };
     tabs();
+
+    //слайдер
+    const slider = () => {
+        const slide = document.querySelectorAll('.portfolio-item'),
+            btn = document.querySelectorAll('.portfolio-btn'),
+            slider = documeny.querySelector('.portfolio-content');
+
+        let currentSlide = 0;
+
+        const autoPlaySlide = () => {
+
+            slide[currentSlide].classList.remove('portfolio-item-active');
+            currentSlide++;
+            slide[currentSlide].classList.add('portfolio-item-active')
+        };
+
+        const startSlide = () => {
+            setInterval(autoPlaySlide, 2000)
+        };
+
+        const stopSlide = () => {
+
+        }
+    };
+    slider();
 });
