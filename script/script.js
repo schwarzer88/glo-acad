@@ -71,18 +71,13 @@ window.addEventListener('DOMContentLoaded', function() {
             if (target) {
                 handlerMenu();
             } else {
-                target = e.target.closest('li');
+                target = e.target.closest('a');
                 if (target) {
                     handlerMenu();
                 } else {
                     return;
                 }
             }
-
-            // closeBtn.addEventListener('click', handlerMenu);
-
-
-            // menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu))
         });
         btnMenu.addEventListener('click', handlerMenu);
     };
