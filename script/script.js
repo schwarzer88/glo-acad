@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', function() {
             if (target) {
                 handlerMenu();
             } else {
-                target = e.target.closest('li');
+                target = e.target.closest('a');
                 if (target) {
                     handlerMenu();
                 } else {
@@ -167,29 +167,4 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     };
     tabs();
-
-    //слайдер
-    const slider = () => {
-        const slide = document.querySelectorAll('.portfolio-item'),
-            btn = document.querySelectorAll('.portfolio-btn'),
-            slider = documeny.querySelector('.portfolio-content');
-
-        let currentSlide = 0;
-
-        const autoPlaySlide = () => {
-
-            slide[currentSlide].classList.remove('portfolio-item-active');
-            currentSlide++;
-            slide[currentSlide].classList.add('portfolio-item-active')
-        };
-
-        const startSlide = () => {
-            setInterval(autoPlaySlide, 2000)
-        };
-
-        const stopSlide = () => {
-
-        }
-    };
-    slider();
 });
