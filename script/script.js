@@ -261,4 +261,112 @@ window.addEventListener('DOMContentLoaded', function() {
         startSlide(1500);
     };
     slider();
+
+    //Валидация калькулятора
+    const getCalcValidation = () => {
+        let calcBlock = document.querySelector('.calc-block');
+        calcBlock.addEventListener('input', (e) => {
+            let target = e.target;
+            if (target.matches('.calc-square')) {
+                target.value = target.value.replace(/\D/g, '');
+            } else if (target.matches('.calc-count')) {
+                target.value = target.value.replace(/\D/g, '');
+            } else if (target.matches('.calc-day')) {
+                target.value = target.value.replace(/\D/g, '');
+            } else {
+                return;
+            }
+        });
+    };
+    getCalcValidation();
+
+    //Валидация в футере
+    const getFooterValidation = () => {
+        let footerForm = document.querySelector('.footer-form-input');
+        footerForm.addEventListener('input', (e) => {
+            let target = e.target;
+            if (target.matches('#form2-name,#form2-message')) {
+                target.value = target.value.replace(/[^А-Яа-яЁё\ \-]/g, '');
+            } else if (target.matches('#form2-email')) {
+                // target.value = target.value.replace(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/, '');
+                target.value = target.value.replace(/[^A-Za-z\@\-\_\.\~\!\*\']/g, '')
+            } else if (target.matches('#form2-phone')) {
+                target.value = target.value.replace(/[^0-9\(\)\-]/g, '');
+            } else {
+                return
+            }
+        });
+        let formName = document.querySelector('#form2-name');
+        let formMessage = document.querySelector('#form2-message');
+        let formEmail = document.querySelector('#form2-email');
+        let formPhone = document.querySelector('#form2-phone');
+        formMessage.addEventListener('blur', () => {
+            formMessage.value = formMessage.value.replace(/ +/g, ' ').trim();
+            formMessage.value = formMessage.value.replace(/-+/g, '-');
+        });
+    };
+    getFooterValidation();
+
+    //Наша команда
+    const dataAttribute = () => {
+        let command = document.querySelectorAll('.command__photo');
+        command.forEach((item) => {
+            item.addEventListener('mouseenter', () => {
+                let source = item.src;
+                item.src = item.dataset.img;
+                item.dataset.img = source;
+            });
+            item.addEventListener('mouseleave', () => {
+                let source = item.src;
+                item.src = item.dataset.img;
+                item.dataset.img = source;
+            });
+        });
+    };
+    dataAttribute();
+
+    //калькулятор
+    const calc = (price = 100) => {
+        const calcBlock = document.querySelector('.calc-block'),
+            calcType = document.querySelector('.calc-type'),
+            calcSquare = document.querySelector('.calc-square'),
+            calcDay = document.querySelector('.calc-day'),
+            calcCount = document.querySelector('.calc-count'),
+            totalValue = document.getElementById('total');
+
+        const countSum = () => {
+            let total = 0,
+                countValue = 1,
+                dayValue = 1;
+            const typeValue = calcType.options[calcType.selectedIndex].value,
+                squareValue = +calcSquare.value;
+
+            if (calcCount.value > 1) {
+                countValue += (calcCount.value - 1) / 10;
+            }
+
+            if (calcDay.value && calcDay.value < 5) {
+                dayValue *= 2;
+            } else if (calcDay.value && calcDay.value < 10) {
+                dayValue *= 1.5;
+            }
+
+            if (typeValue && squareValue) {
+                total = price * typeValue * squareValue * countValue * dayValue;
+            }
+
+            totalValue.textContent = total;
+        };
+
+        calcBlock.addEventListener('change', (e) => {
+            const target = e.target;
+
+            if (target.matches('select') || target.matches('input')) {
+                countSum();
+            }
+
+        });
+
+    };
+    calc();
 });
