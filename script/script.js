@@ -393,25 +393,29 @@ window.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-
-            const formData = new FormData(form);
-            let body = {};
-
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
-            postData(body, () => {
-                console.log(body);
-                statusMessage.textContent = successMessage;
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            });
             let inputs = form.querySelectorAll('input');
-            inputs.forEach((item) => {
-                item.value = '';
-            });
+            if (inputs[0].value.length < 2 || inputs[1].value.length < 3 ||
+                inputs[2].value.length > 12 || inputs[2].value.length < 8) {
+                statusMessage.textContent = 'Введите корректные данные!!!';
+            } else {
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(form);
+                let body = {};
+
+                for (let val of formData.entries()) {
+                    body[val[0]] = val[1];
+                }
+                postData(body, () => {
+                    console.log(body);
+                    statusMessage.textContent = successMessage;
+                }, (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+                inputs.forEach((item) => {
+                    item.value = '';
+                });
+            }
         });
 
         const postData = (body, outputData, errorData) => {
@@ -449,25 +453,29 @@ window.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-
-            const formData = new FormData(form);
-            let body = {};
-
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
-            postData(body, () => {
-                console.log(body);
-                statusMessage.textContent = successMessage;
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            });
             let inputs = form.querySelectorAll('input');
-            inputs.forEach((item) => {
-                item.value = '';
-            });
+            if (inputs[0].value.length < 2 || inputs[1].value.length < 8 ||
+                inputs[1].value.length > 12 || inputs[2].value.length < 3) {
+                statusMessage.textContent = 'Введите корректные данные!!!';
+            } else {
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(form);
+                let body = {};
+
+                for (let val of formData.entries()) {
+                    body[val[0]] = val[1];
+                }
+                postData(body, () => {
+                    console.log(body);
+                    statusMessage.textContent = successMessage;
+                }, (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+                inputs.forEach((item) => {
+                    item.value = '';
+                });
+            }
         });
 
         const postData = (body, outputData, errorData) => {
@@ -504,25 +512,30 @@ window.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
 
-            const formData = new FormData(form);
-            let body = {};
-
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
-            postData(body, () => {
-                console.log(body);
-                statusMessage.textContent = successMessage;
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            });
             let inputs = form.querySelectorAll('input');
-            inputs.forEach((item) => {
-                item.value = '';
-            });
+            if (inputs[0].value.length < 2 || inputs[1].value.length < 3 || inputs[2].value.length < 8 ||
+                inputs[2].value.length > 12 || inputs[3].value.length < 10) {
+                statusMessage.textContent = 'Введите корректные данные!!!';
+            } else {
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(form);
+                let body = {};
+
+                for (let val of formData.entries()) {
+                    body[val[0]] = val[1];
+                }
+                postData(body, () => {
+                    console.log(body);
+                    statusMessage.textContent = successMessage;
+                }, (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+                inputs.forEach((item) => {
+                    item.value = '';
+                });
+            }
         });
 
         const postData = (body, outputData, errorData) => {
