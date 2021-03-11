@@ -381,180 +381,198 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //send-ajax-form
     const sendForm = () => {
-        const errorMessage = 'Что то пошло не так...',
-            loadMessage = 'Загрузка...',
-            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-        const form = document.getElementById('form1');
 
         const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem';
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            let inputs = form.querySelectorAll('input');
-            if (inputs[0].value.length < 2 || inputs[1].value.length < 3 ||
-                inputs[2].value.length > 12 || inputs[2].value.length < 8) {
-                statusMessage.textContent = 'Введите корректные данные!!!';
-            } else {
-                statusMessage.textContent = loadMessage;
-                const formData = new FormData(form);
-                let body = {};
+        const output = () => {
+            const errorMessage = 'Что то пошло не так...',
+                loadMessage = 'Загрузка...',
+                successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-                for (let val of formData.entries()) {
-                    body[val[0]] = val[1];
-                }
-                postData(body, () => {
-                    console.log(body);
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                });
-                inputs.forEach((item) => {
-                    item.value = '';
-                });
-            }
-        });
+            const form = document.getElementById('form1');
+            statusMessage.style.cssText = 'font-size: 2rem';
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                form.appendChild(statusMessage);
+                let inputs = form.querySelectorAll('input');
+                if (inputs[0].value.length < 2 || inputs[1].value.length < 3 ||
+                    inputs[2].value.length > 12 || inputs[2].value.length < 8) {
+                    statusMessage.textContent = 'Введите корректные данные!!!';
                 } else {
-                    errorData(request.status);
-                }
+                    statusMessage.textContent = loadMessage;
+                    const formData = new FormData(form);
+                    let body = {};
+
+                    for (let val of formData.entries()) {
+                        body[val[0]] = val[1];
+                    }
+                    postData(body);
+                    inputs.forEach((item) => {
+                        item.value = '';
+                    });
+                };
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
+        };
+
+        const postData = (body) => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        statusMessage.textContent = 'Спасибо, мы с вами скоро свяжемся';
+                        console.log(body);
+                        resolve(body);
+                    } else {
+                        reject(request.status);
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+            })
         }
+        postData()
+            .then(output)
+            .catch(error => console.log(error));
     }
     sendForm();
 
     //ajax-modal
     const sendFormModal = () => {
-        const errorMessage = 'Что то пошло не так...',
-            loadMessage = 'Загрузка...',
-            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-        const form = document.getElementById('form3');
-
         const statusMessage = document.createElement('div');
-        statusMessage.style.color = 'white';
-        statusMessage.style.fontSize = '2rem';
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            let inputs = form.querySelectorAll('input');
-            if (inputs[0].value.length < 2 || inputs[1].value.length < 8 ||
-                inputs[1].value.length > 12 || inputs[2].value.length < 3) {
-                statusMessage.textContent = 'Введите корректные данные!!!';
-            } else {
-                statusMessage.textContent = loadMessage;
-                const formData = new FormData(form);
-                let body = {};
+        const output = () => {
+            const errorMessage = 'Что то пошло не так...',
+                loadMessage = 'Загрузка...',
+                successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-                for (let val of formData.entries()) {
-                    body[val[0]] = val[1];
-                }
-                postData(body, () => {
-                    console.log(body);
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                });
-                inputs.forEach((item) => {
-                    item.value = '';
-                });
-            }
-        });
+            const form = document.getElementById('form3');
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
+            statusMessage.style.color = 'white';
+            statusMessage.style.fontSize = '2rem';
 
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                form.appendChild(statusMessage);
+                let inputs = form.querySelectorAll('input');
+                if (inputs[0].value.length < 2 || inputs[1].value.length < 8 ||
+                    inputs[1].value.length > 12 || inputs[2].value.length < 3) {
+                    statusMessage.textContent = 'Введите корректные данные!!!';
                 } else {
-                    errorData(request.status);
+                    statusMessage.textContent = loadMessage;
+                    const formData = new FormData(form);
+                    let body = {};
+
+                    for (let val of formData.entries()) {
+                        body[val[0]] = val[1];
+                    }
+                    postData(body)
+                    inputs.forEach((item) => {
+                        item.value = '';
+                    });
                 }
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
+        };
+
+        const postData = (body) => {
+
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        statusMessage.textContent = 'Спасибо, мы с вами скоро свяжемся';
+                        console.log(body);
+                        resolve(body);
+                    } else {
+                        reject(request.status);
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+            });
         }
+        postData()
+            .then(output)
+            .catch(error => console.error(error));
     }
     sendFormModal();
 
     //ajax-footer
     const sendFormFooter = () => {
-        const errorMessage = 'Что то пошло не так...',
-            loadMessage = 'Загрузка...',
-            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-
-        const form = document.getElementById('form2');
 
         const statusMessage = document.createElement('div');
-        statusMessage.style.fontSize = '2rem';
 
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
+        const output = () => {
 
-            let inputs = form.querySelectorAll('input');
-            if (inputs[0].value.length < 2 || inputs[1].value.length < 3 || inputs[2].value.length < 8 ||
-                inputs[2].value.length > 12 || inputs[3].value.length < 10) {
-                statusMessage.textContent = 'Введите корректные данные!!!';
-            } else {
-                statusMessage.textContent = loadMessage;
-                const formData = new FormData(form);
-                let body = {};
 
-                for (let val of formData.entries()) {
-                    body[val[0]] = val[1];
-                }
-                postData(body, () => {
-                    console.log(body);
-                    statusMessage.textContent = successMessage;
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                });
-                inputs.forEach((item) => {
-                    item.value = '';
-                });
-            }
-        });
+            const errorMessage = 'Что то пошло не так...',
+                loadMessage = 'Загрузка...',
+                successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
+            const form = document.getElementById('form2');
 
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    outputData();
+            statusMessage.style.fontSize = '2rem';
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                form.appendChild(statusMessage);
+
+                let inputs = form.querySelectorAll('input');
+                if (inputs[0].value.length < 2 || inputs[1].value.length < 3 || inputs[2].value.length < 8 ||
+                    inputs[2].value.length > 12 || inputs[3].value.length < 10) {
+                    statusMessage.textContent = 'Введите корректные данные!!!';
                 } else {
-                    errorData(request.status);
+                    statusMessage.textContent = loadMessage;
+                    const formData = new FormData(form);
+                    let body = {};
+
+                    for (let val of formData.entries()) {
+                        body[val[0]] = val[1];
+                    }
+                    postData(body);
+                    inputs.forEach((item) => {
+                        item.value = '';
+                    });
                 }
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
         }
+
+        const postData = (body) => {
+
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        statusMessage.textContent = 'Спасибо, мы с вами скоро свяжемся';
+                        console.log(body);
+                        resolve(body);
+                    } else {
+                        reject(request.statusText);
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(JSON.stringify(body));
+            });
+        };
+
+        postData()
+            .then(output)
+            .catch(error => console.error(error));
     }
     sendFormFooter();
 });
