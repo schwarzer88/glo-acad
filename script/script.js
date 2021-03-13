@@ -73,6 +73,13 @@ window.addEventListener('DOMContentLoaded', function() {
             } else {
                 target = e.target.closest('a');
                 if (target) {
+                    e.preventDefault();
+                    const blockId = target.hash;
+                    console.dir(target.hash);
+                    document.querySelector(blockId).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    })
                     handlerMenu();
                 } else {
                     return;
