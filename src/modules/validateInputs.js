@@ -11,7 +11,8 @@ const validateInputs = () => {
     document.addEventListener('input', event => {
         const target = event.target;
 
-        if (target.matches('.calc-item')) {
+        if (target.matches('.calc-square') || target.matches('.calc-count') ||
+            target.matches('.calc-day')) {
             target.value = target.value.replace(/\D/gi, '');
         } else if (target.matches('.form-name') ||
             target.matches('#form2-name')) {
