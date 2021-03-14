@@ -6,22 +6,23 @@ const calc = (price = 100) => {
         calcCount = document.querySelector('.calc-count'),
         totalValue = document.getElementById('total');
 
-    const time = 1;
-    const step = 200;
 
-    const outNum = (num, elem) => {
-        let e = document.querySelector(elem);
-        let n = 0;
-        let t = Math.round(time / (num / step));
-        let interval = setInterval(() => {
-            n = n + step;
-            if (n > num) {
-                n = num;
-                clearInterval(interval);
-            }
-            e.textContent = n;
-        }, t);
-    }
+    // const outNum = (num, elem) => {
+    //     const time = 1;
+    //     const step = 1;
+    //     clearInterval(interval);
+    //     let el = document.querySelector(elem);
+    //     el.textContent = 0;
+    //     let t = Math.round(time / (num / step));
+    //     let interval = setInterval(() => {
+    //         el.textContent = (el.textContent * 1) + step;
+    //         if (el.textContent > num) {
+    //             el.textContent = num;
+    //             clearInterval(interval);
+    //             interval = 0;
+    //         }
+    //     }, t);
+    // }
 
     const countSum = () => {
         let total = 0,
@@ -43,17 +44,16 @@ const calc = (price = 100) => {
         if (typeValue && squareValue) {
             total = price * typeValue * squareValue * countValue * dayValue;
         }
-        outNum(Math.floor(total), '#total');
-        // totalValue.textContent = total;
+        totalValue.textContent = Math.ceil(total);
+        console.log('total:' + total);
+        // outNum(Math.floor(total), '#total');
     };
 
     calcBlock.addEventListener('change', (e) => {
         const target = e.target;
         if (target.matches('select') || target.matches('input')) {
             countSum();
-            console.log(calcType.options[selectedIndex].value);
         }
-
     });
 
 };

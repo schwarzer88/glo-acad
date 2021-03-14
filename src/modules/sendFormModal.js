@@ -13,13 +13,14 @@ const sendFormModal = () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         form.appendChild(statusMessage);
+        let regEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         let inputs = form.querySelectorAll('input');
         if (inputs[0].value.length < 2) {
             statusMessage.textContent = 'Имя должно содержать минимум 2 буквы';
         } else if (inputs[1].value.length < 8 ||
             inputs[1].value.length > 12) {
             statusMessage.textContent = 'Введите корректный номер телефона!(от 8 до 11 цифр)';
-        } else if (inputs[2].value.length < 3) {
+        } else if (!regEmail.test(inputs[2].value)) {
             statusMessage.textContent = 'Введите корректную почту';
         } else {
             statusMessage.textContent = loadMessage;
@@ -44,6 +45,11 @@ const sendFormModal = () => {
                 .catch((error) => {
                     statusMessage.textContent = errorMessage;
                     console.error(error);
+                    setInterval(() => {
+                        statusMessage.textContent = '';
+                        const popup = document.querySelector('.popup');
+                        popup.style.display = 'none';
+                    }, 3000);
                 });
             inputs.forEach((item) => {
                 item.value = '';

@@ -13,11 +13,11 @@ const sendFormFooter = () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         form.appendChild(statusMessage);
-
+        let regEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
         let inputs = form.querySelectorAll('input');
         if (inputs[0].value.length < 2) {
             statusMessage.textContent = 'Имя должно содержать минимум 2 буквы';
-        } else if (inputs[1].value.length < 3) {
+        } else if (!regEmail.test(inputs[1].value)) {
             statusMessage.textContent = 'Введите корректную почту';
         } else if (inputs[2].value.length < 8 ||
             inputs[2].value.length > 12) {
@@ -45,6 +45,9 @@ const sendFormFooter = () => {
                 .catch((error) => {
                     statusMessage.textContent = errorMessage;
                     console.error(error);
+                    setInterval(() => {
+                        statusMessage.textContent = '';
+                    }, 3000);
                 });
             inputs.forEach((item) => {
                 item.value = '';
